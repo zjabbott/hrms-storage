@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ln.dao.RolesMapper">
+    <resultMap id="ResultMap" type="com.ln.model.Roles">
+        <id column="id" property="id"/>
+        <id column="role" property="role"/>
+        <id column="function" property="function"/>
+    </resultMap>
+    <select id="get" resultMap="ResultMap">
+        SELECT * FROM roles;
+    </select>
+
+</mapper>

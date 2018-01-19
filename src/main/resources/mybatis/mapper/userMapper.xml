@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ln.dao.UserMapper">
+    <resultMap id="ResultMap" type="com.ln.model.User">
+        <id column="id" property="id"/>
+        <result column="eid" property="eid"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="pwd"/>
+        <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="gender" property="gender"/>
+        <result column="status" property="status"/>
+        <result column="permit" property="permit"/>
+        <result column="intime" property="inTime"/>
+        <result column="outtime" property="outTime"/>
+        <result column="createtime" property="createTime"/>
+        <result column="updatetime" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ln.model.User">
+        INSERT INTO user
+        (eid,name,pwd,email,avatar,address,phone,gender,status,permit,intime,outtime,createtime,updatetime)
+        VALUES
+        (#{eid}, #{name},
+        #{pwd},#{email},#{avatar},#{address},#{phone},#{gender},#{status},#{permit},#{inTime},#{outTime},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="update" parameterType="com.ln.model.User">
+        UPDATE user
+        SET
+        <if test="eid != null">eid = #{eid},</if>
+        <if test="name != null">name = #{name},</if>
+        <if test="pwd != null">pwd = #{pwd},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="avatar != null">avatar = #{avatar},</if>
+        <if test="address != null">address = #{address},</if>
+        <if test="phone != null">phone = #{phone},</if>
+        <if test="gender != 0">gender = #{gender},</if>
+        <if test="status != 0">status = #{status},</if>
+        <if test="permit != 0">permit = #{permit},</if>
+        <if test="inTime != 0">intime = #{inTime},</if>
+        <if test="outTime != 0">outtime = #{outTime},</if>
+        <if test="createTime != 0">createtime = #{createTime},</if>
+        <if test="updateTime != 0">updatetime = #{updateTime}</if>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="get" resultMap="ResultMap">
+        SELECT * FROM user where id=#{id}
+    </select>
+
+    <select id="getList" resultMap="ResultMap">
+        SELECT * FROM user
+        <if test="id != 0">where id &gt; #{id}</if>
+        limit #{limit}
+    </select>
+
+    <select id="getByEid" resultMap="ResultMap">
+        SELECT * FROM user where eid=#{eid}
+    </select>
+
+    <update id="addPermit">
+        update user set permit=permit | #{permit} where id =#{id}
+    </update>
+
+    <update id="removePermit">
+        update user set permit=permit ^ #{permit} where id =#{id}
+    </update>
+
+
+</mapper>
